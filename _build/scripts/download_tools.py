@@ -4,7 +4,7 @@ import zipfile
 import shutil
 import threading
 
-targetFolder = "_build"
+targetFolder = ".."
 zipDownloads = os.path.join(targetFolder, "zips")
 
 def download_file(url):
@@ -43,7 +43,7 @@ def download_tools_archive():
   for thread in threads:
     thread.join()
 
-  print("Done")
+  print("Downloading tools archive - Done")
 
 def unzip_tools():
   print("Unzipping files")
@@ -59,7 +59,7 @@ def unzip_tools():
   with zipfile.ZipFile(os.path.join(zipPath, toolsZipFile), "r") as zipObj:
       zipObj.extractall(targetFolder)
     
-  print("Done")
+  print("Unzipping files - Done")
 
 def delete_tmp_folders():
   shutil.rmtree(zipDownloads)
@@ -69,11 +69,10 @@ def __launch_download_thread(url):
     thread.start()
     return thread
 
-def main():
+def run():
+  print("Downloading tools..")
+
   make_zip_download_path()
   download_tools_archive()
   unzip_tools()
   delete_tmp_folders()
-
-if __name__ == "__main__":
-  main()
