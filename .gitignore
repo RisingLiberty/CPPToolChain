@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+_build/tools/
+_build/sharpmake/obj/
+_build/sharpmake/.vs/
+_build/sharpmake/bin/
