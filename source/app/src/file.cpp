@@ -1,8 +1,6 @@
 #include "app/file.h"
 
-Something::Something() = default;
-
-int Something::foo() const
+int foo()
 {
     return 0;
 }
