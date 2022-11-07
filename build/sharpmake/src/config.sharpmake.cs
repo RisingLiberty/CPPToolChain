@@ -27,9 +27,9 @@ public class ConfigManager
   {
     switch (config)
     {
-      case Config.assert: return Optimization.FullOpRexithPdb;
+      case Config.assert: return Optimization.FullOptWithPdb;
       case Config.debug: return Optimization.NoOpt;
-      case Config.debug_opt: return Optimization.FullOpRexithPdb;
+      case Config.debug_opt: return Optimization.FullOptWithPdb;
       case Config.release: return Optimization.FullOpt;
       case Config.tests: return Optimization.NoOpt;
     }

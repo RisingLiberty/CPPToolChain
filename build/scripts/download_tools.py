@@ -4,7 +4,7 @@ import zipfile
 import shutil
 import threading
 
-targetFolder = ".."
+targetFolder = "build"
 zipDownloads = os.path.join(targetFolder, "zips")
 
 def download_file(url):
@@ -58,6 +58,8 @@ def unzip_tools():
 
   with zipfile.ZipFile(os.path.join(zipPath, toolsZipFile), "r") as zipObj:
       zipObj.extractall(targetFolder)
+
+  print(f"tools unzipped to {os.path.basename(os.curdir)}")
     
   print("Unzipping files - Done")
 

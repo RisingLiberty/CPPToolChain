@@ -1,9 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <StartAction>Program</StartAction>
-    <StartProgram>C:\Dev\Testing\toolchain_test\thirdparty\sharpmake\Sharpmake.Application.exe</StartProgram>
-    <StartArguments>/sources%28"source/main.sharpmake.cs"%29</StartArguments>
-    <StartWorkingDirectory>C:\Dev\Testing\toolchain_test\sharpmake\</StartWorkingDirectory>
-  </PropertyGroup>
-</Project>

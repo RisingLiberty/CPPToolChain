@@ -39,3 +39,7 @@ _build/scripts/__pycache__/
 main_solution.ninja
 main_solution.sln
 .rex/
+build/sharpmake/obj/
+build/sharpmake/bin/
+build/scripts/__pycache__/
+.vs/

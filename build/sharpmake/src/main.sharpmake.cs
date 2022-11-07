@@ -41,7 +41,7 @@ public class Globals
   {
     string current_directory = Directory.GetCurrentDirectory();
 
-    while (Directory.GetDirectories(current_directory).ToList().FindIndex(x => Path.GetFileName(x) != folder_in_root) == -1)
+    while (Directory.GetDirectories(current_directory).ToList().FindIndex(x => Path.GetFileName(x) == folder_in_root) == -1)
     {
       if (Directory.GetDirectoryRoot(current_directory) == current_directory)
       {
@@ -60,7 +60,7 @@ public class Globals
 public enum Optimization
 {
   NoOpt = (1 << 0),
-  FullOpRexithPdb = (1 << 1),
+  FullOptWithPdb = (1 << 1),
   FullOpt = (1 << 2)
 }
 
@@ -239,8 +239,10 @@ public class AppProject : Project
     conf.IntermediatePath = Path.Combine(conf.ProjectPath, "intermediate", conf.Name);
     conf.TargetPath = Path.Combine(conf.ProjectPath, "bin", conf.Name);
     conf.UseRelativePdbPath = false;
+    conf.LinkerPdbFilePath = Path.Combine(conf.TargetPath, $"{Name}_{conf.Name}_{target.Compiler}{conf.LinkerPdbSuffix}.pdb");
+    conf.CompilerPdbFilePath = Path.Combine(conf.TargetPath, $"{Name}_{conf.Name}_{target.Compiler}{conf.CompilerPdbSuffix}.pdb");
 
-    conf.Output = Configuration.OutputType.Exe;
+    conf.Output = Configuration.OutputType.Lib;
 
     conf.IncludeSystemPaths.Add(@"D:\Tools\Windows SDK\10.0.19041.0\include\um");
     conf.IncludeSystemPaths.Add(@"D:\Tools\Windows SDK\10.0.19041.0\include\shared");
@@ -251,6 +253,10 @@ public class AppProject : Project
     conf.IncludeSystemPaths.Add(@"D:\Tools\MSVC\install\14.29.30133\atlmfc\include");
 
     conf.IncludePaths.Add($@"{SourceRootPath}\include");
+
+    string postbuildCommandScript = Path.Combine(Globals.Root, "build", "scripts", $"post_build.py -p{Name} -comp={target.Compiler} -conf={conf.Name}");
+
+    conf.EventPostBuild.Add(postbuildCommandScript);
 
     conf.disable_exceptions();
 
@@ -264,7 +270,7 @@ public class AppProject : Project
         conf.Options.Add(Options.Vc.General.DebugInformation.ProgramDatabase);
         conf.disable_optimization();
         break;
-      case Optimization.FullOpRexithPdb:
+      case Optimization.FullOptWithPdb:
         conf.Options.Add(Options.Vc.General.DebugInformation.ProgramDatabase);
         conf.enable_optimization();
         conf.Options.Add(Options.Vc.Linker.LinkTimeCodeGeneration.Default);      // To fix linker warning
@@ -334,6 +340,7 @@ public class AppProject : Project
     //    break;
     //}
   }
+
 }
 // Represents the solution that will be generated and that will contain the
 // project with the sample code.
