@@ -2,8 +2,8 @@ import run_clang_tools
 import diagnostics
 import argparse
 
-def run(projectName, compiler, config):
-  run_clang_tools.run(projectName, compiler, config)
+def run(projectName, config):
+  run_clang_tools.run(projectName, config)
 
 def main():
   parser = argparse.ArgumentParser(formatter_class=argparse.RawTextHelpFormatter)
@@ -28,7 +28,7 @@ def main():
   logger.info(f"Executing {__file__}")
 
  # execute the script
-  run(project_name, compiler, config)
+  run(project_name, config)
 
  # print. We're done.
   logger.info("Done.")
